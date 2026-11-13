@@ -1,0 +1,276 @@
+{
+  "entities": {
+    "UserProfile": {
+      "title": "UserProfile",
+      "description": "Authenticated P-MEDIS officer profile linked to their Gmail/Google account.",
+      "type": "object",
+      "properties": {
+        "uid": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$",
+          "description": "Firebase Auth UID of the user."
+        },
+        "email": {
+          "type": "string",
+          "format": "email",
+          "minLength": 3,
+          "maxLength": 254,
+          "description": "Verified Gmail or Google Workspace email address."
+        },
+        "displayName": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 120,
+          "description": "Full display name of the medical officer."
+        },
+        "photoURL": {
+          "type": "string",
+          "maxLength": 500,
+          "description": "Profile avatar URL from Google Account."
+        },
+        "position": {
+          "type": "string",
+          "maxLength": 100,
+          "description": "Official title or medical rank."
+        },
+        "department": {
+          "type": "string",
+          "maxLength": 120,
+          "description": "Division or department name."
+        },
+        "facility": {
+          "type": "string",
+          "maxLength": 120,
+          "description": "Assigned hospital or provincial health office under Pattani PPHO."
+        },
+        "role": {
+          "type": "string",
+          "enum": ["officer", "admin"],
+          "description": "Access role within P-MEDIS."
+        },
+        "lastLoginAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp of most recent Gmail login."
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp when user profile was first created."
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp when profile was last updated."
+        }
+      },
+      "required": [
+        "uid",
+        "email",
+        "displayName",
+        "photoURL",
+        "position",
+        "department",
+        "facility",
+        "role",
+        "lastLoginAt",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "LoginSession": {
+      "title": "LoginSession",
+      "description": "Audit record of a Gmail sign-in session for a user.",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$",
+          "description": "Owner Firebase Auth UID."
+        },
+        "email": {
+          "type": "string",
+          "format": "email",
+          "minLength": 3,
+          "maxLength": 254,
+          "description": "Authenticated Gmail address."
+        },
+        "provider": {
+          "type": "string",
+          "enum": ["google.com"],
+          "description": "Authentication provider identifier."
+        },
+        "deviceLabel": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 120,
+          "description": "Browser and OS label for session audit."
+        },
+        "status": {
+          "type": "string",
+          "enum": ["active", "signed_out"],
+          "description": "Session status."
+        },
+        "loginAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp of login."
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp when record was written."
+        }
+      },
+      "required": [
+        "userId",
+        "email",
+        "provider",
+        "deviceLabel",
+        "status",
+        "loginAt",
+        "createdAt"
+      ]
+    },
+    "WorkforceRecord": {
+      "title": "WorkforceRecord",
+      "description": "Physician personnel record under Pattani Provincial Public Health Office (สสจ.ปัตตานี).",
+      "type": "object",
+      "properties": {
+        "ownerId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$",
+          "description": "UID of the officer owning this workspace record."
+        },
+        "rowNo": {
+          "type": "integer",
+          "description": "Sequence number from official roster."
+        },
+        "licenseNo": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 32,
+          "description": "Official position number (เลขที่ตำแหน่ง)."
+        },
+        "fullName": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 120,
+          "description": "Physician full name."
+        },
+        "hospital": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 120,
+          "description": "Actual duty community hospital under สสจ.ปัตตานี."
+        },
+        "district": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 80,
+          "description": "District name in Pattani province."
+        },
+        "positionTitle": {
+          "type": "string",
+          "maxLength": 80,
+          "description": "Official position title (ตำแหน่ง)."
+        },
+        "rankLevel": {
+          "type": "string",
+          "maxLength": 60,
+          "description": "Civil service level (ระดับ)."
+        },
+        "doctorType": {
+          "type": "string",
+          "maxLength": 100,
+          "description": "Recruitment track (ประเภทของแพทย์)."
+        },
+        "dutyStatus": {
+          "type": "string",
+          "enum": ["active_duty", "study_leave", "resigned"],
+          "description": "Active duty or study leave status."
+        },
+        "j18Status": {
+          "type": "string",
+          "enum": ["match", "mismatch", "other"],
+          "description": "Whether actual duty matches J.18 position."
+        },
+        "j18Hospital": {
+          "type": "string",
+          "maxLength": 120,
+          "description": "Official J.18 hospital."
+        },
+        "specialty": {
+          "type": "string",
+          "maxLength": 200,
+          "description": "Board certification or study leave specialty."
+        },
+        "studySponsor": {
+          "type": "string",
+          "maxLength": 120,
+          "description": "Scholarship sponsoring hospital or health region."
+        },
+        "studyPeriod": {
+          "type": "string",
+          "maxLength": 120,
+          "description": "Study leave dates in Buddhist Era."
+        },
+        "note": {
+          "type": "string",
+          "maxLength": 240,
+          "description": "Administrative remarks."
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server creation timestamp."
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server update timestamp."
+        }
+      },
+      "required": [
+        "ownerId",
+        "rowNo",
+        "licenseNo",
+        "fullName",
+        "hospital",
+        "district",
+        "positionTitle",
+        "rankLevel",
+        "doctorType",
+        "dutyStatus",
+        "j18Status",
+        "j18Hospital",
+        "specialty",
+        "studySponsor",
+        "studyPeriod",
+        "note",
+        "createdAt",
+        "updatedAt"
+      ]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": { "$ref": "#/entities/UserProfile" },
+      "description": "Stores verified Gmail officer profile and facility assignment."
+    },
+    "/users/{userId}/sessions/{sessionId}": {
+      "schema": { "$ref": "#/entities/LoginSession" },
+      "description": "Audit log of Gmail sign-in sessions belonging to a specific user."
+    },
+    "/workforce/{recordId}": {
+      "schema": { "$ref": "#/entities/WorkforceRecord" },
+      "description": "Hospital medical workforce records under สสจ.ปัตตานี scoped to ownerId."
+    }
+  }
+}

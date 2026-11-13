@@ -1,0 +1,218 @@
+---
+name: P-MEDIS Healthcare Intelligence
+colors:
+  surface: '#f8f9ff'
+  surface-dim: '#ccdbf3'
+  surface-bright: '#f8f9ff'
+  surface-container-lowest: '#ffffff'
+  surface-container-low: '#eff4ff'
+  surface-container: '#e6eeff'
+  surface-container-high: '#dce9ff'
+  surface-container-highest: '#d5e3fc'
+  on-surface: '#0d1c2e'
+  on-surface-variant: '#3e4946'
+  inverse-surface: '#233144'
+  inverse-on-surface: '#eaf1ff'
+  outline: '#6e7a75'
+  outline-variant: '#bdc9c4'
+  surface-tint: '#006b5b'
+  primary: '#005f50'
+  on-primary: '#ffffff'
+  primary-container: '#0d7a68'
+  on-primary-container: '#aaffe9'
+  inverse-primary: '#7cd7c1'
+  secondary: '#545f73'
+  on-secondary: '#ffffff'
+  secondary-container: '#d5e0f8'
+  on-secondary-container: '#586377'
+  tertiary: '#814400'
+  on-tertiary: '#ffffff'
+  tertiary-container: '#a55800'
+  on-tertiary-container: '#ffebde'
+  error: '#ba1a1a'
+  on-error: '#ffffff'
+  error-container: '#ffdad6'
+  on-error-container: '#93000a'
+  primary-fixed: '#99f3dd'
+  primary-fixed-dim: '#7cd7c1'
+  on-primary-fixed: '#00201a'
+  on-primary-fixed-variant: '#005144'
+  secondary-fixed: '#d8e3fb'
+  secondary-fixed-dim: '#bcc7de'
+  on-secondary-fixed: '#111c2d'
+  on-secondary-fixed-variant: '#3c475a'
+  tertiary-fixed: '#ffdcc3'
+  tertiary-fixed-dim: '#ffb77d'
+  on-tertiary-fixed: '#2f1500'
+  on-tertiary-fixed-variant: '#6e3900'
+  background: '#f8f9ff'
+  on-background: '#0d1c2e'
+  surface-variant: '#d5e3fc'
+typography:
+  display:
+    fontFamily: Manrope
+    fontSize: 2.25rem
+    fontWeight: '700'
+    lineHeight: 2.75rem
+    letterSpacing: -0.02em
+  headline-lg:
+    fontFamily: Manrope
+    fontSize: 1.75rem
+    fontWeight: '600'
+    lineHeight: 2.25rem
+    letterSpacing: -0.015em
+  headline-lg-mobile:
+    fontFamily: Manrope
+    fontSize: 1.375rem
+    fontWeight: '600'
+    lineHeight: 1.875rem
+    letterSpacing: -0.01em
+  headline-md:
+    fontFamily: Manrope
+    fontSize: 1.25rem
+    fontWeight: '600'
+    lineHeight: 1.75rem
+    letterSpacing: -0.01em
+  title-md:
+    fontFamily: Manrope
+    fontSize: 1rem
+    fontWeight: '600'
+    lineHeight: 1.5rem
+  body-lg:
+    fontFamily: Inter
+    fontSize: 1rem
+    fontWeight: '400'
+    lineHeight: 1.5rem
+  body-md:
+    fontFamily: Inter
+    fontSize: 0.875rem
+    fontWeight: '400'
+    lineHeight: 1.375rem
+  body-sm:
+    fontFamily: Inter
+    fontSize: 0.75rem
+    fontWeight: '400'
+    lineHeight: 1.125rem
+  label-md:
+    fontFamily: Inter
+    fontSize: 0.8125rem
+    fontWeight: '500'
+    lineHeight: 1.125rem
+    letterSpacing: 0.01em
+  label-sm:
+    fontFamily: Inter
+    fontSize: 0.6875rem
+    fontWeight: '600'
+    lineHeight: 1rem
+    letterSpacing: 0.02em
+  numeric-stat:
+    fontFamily: Manrope
+    fontSize: 2rem
+    fontWeight: '700'
+    lineHeight: 2.25rem
+    letterSpacing: -0.03em
+rounded:
+  sm: 0.125rem
+  DEFAULT: 0.25rem
+  md: 0.375rem
+  lg: 0.5rem
+  xl: 0.75rem
+  full: 9999px
+spacing:
+  gutter: 1.25rem
+  gutter-desktop: 1.5rem
+  margin: 1rem
+  margin-desktop: 2rem
+  space-xs: 0.25rem
+  space-sm: 0.5rem
+  space-md: 1rem
+  space-lg: 1.5rem
+  space-xl: 2.5rem
+---
+
+## Brand & Style
+
+This design system establishes a high-precision, authoritative institutional design language engineered for provincial public health governance, workforce allocation, and clinical analytics. It balances clinical solemnity with contemporary administrative efficiency, avoiding generic bureaucratic clutter in favor of crisp visual hierarchy and effortless data digestion.
+
+### Personality & Tone
+- **Authoritative & Trustworthy:** Communicates state-level integrity, rigorous governance, and clinical accuracy.
+- **Alert & Responsive:** Highlights staffing criticalities, shifts, and regional shortages without panic-inducing visual noise.
+- **Analytical & Precise:** Optimized for high-density administrative metrics, complex duty rosters, and multi-tier hospital data.
+
+### Design Movement
+The interface employs **Corporate Modernist Structuralism** paired with **Tonal Layering**. It relies on architectural tabular grids, subtle borders, disciplined typographic contrast, and restrained chromatic accents to ensure medical officers and regional planners can make high-stakes workforce decisions rapidly.
+
+## Colors
+
+The palette is anchored in the administrative colors of public health and Pattani’s coastal maritime heritage, punctuated by functional signal tokens for workforce logistics and critical staffing alerts.
+
+### Functional Roles
+- **Primary Deep Teal (`#0D7A68`):** Governs top-tier structural navigation, primary action states, active navigation indicators, and public health identity accents.
+- **Secondary Navy Slate (`#1E293B`):** Establishes typographic authority, dense table header rows, critical iconography, and high-emphasis structural boundaries.
+- **Tertiary Amber Gold (`#D97706`):** Reserved for quota pending states, provisional staffing timelines, review-needed duty shifts, and moderate system warnings.
+- **Critical Red (`#DC2626`):** Strict operational semantic indicator applied exclusively to emergency doctor deficits, mismatch alerts, expired licenses, and mandatory quota breaches.
+- **Base Surfaces & Canvases (`#F8FAFC` to `#F1F5F9`):** Subtly tinted cool slate-mint backgrounds reduce eye strain during prolonged screen exposure in hospital registry settings while lifting data cards cleanly.
+
+## Typography
+
+Typography prioritizes bilingual structural legibility (Thai and English) across dense data matrices, personnel rosters, and KPI widgets.
+
+- **Headlines & Metric Figures (`Manrope`):** Delivers modern geometric balance and structured open counters. Its numeric glyphs display clear tabular spacing when reviewing regional doctor ratios and hospital staffing thresholds.
+- **Body & Controls (`Inter`):** Selected for its tall x-height, neutral letterforms, and optimized baseline rendering alongside standard Thai system fonts (e.g., Sarabun, Thonburi).
+- **Tabular Figures:** All numeric displays within tables, shift clocks, and citizen quota matrices must enforce `font-variant-numeric: tabular-nums` to ensure strict vertical column alignment across rows.
+
+## Layout & Spacing
+
+The layout philosophy follows a **structured fluid grid system** anchored by institutional side-rail navigation.
+
+### Breakpoints & Adaptability
+- **Desktop (≥ 1280px):** 12-column layout with fixed 260px administrative navigation sidebar. Primary views prioritize side-by-side data grids and geographic district allocation maps. Gutters are locked to `1.5rem` (`gutter-desktop`) with outer canvas margins of `2rem` (`margin-desktop`).
+- **Tablet / Small Laptop (768px – 1279px):** 8-column layout. Navigation collapses into an icon-only dock or off-canvas drawer. Data matrices introduce horizontal scrolling wrappers with pinned identifier columns (e.g., Doctor Name & ID). Gutters compress to `1.25rem`.
+- **Mobile (< 768px):** 4-column fluid layout with edge margins of `1rem`. Multi-column analytical views transform into stacked status cards. Key metrics display in horizontal scroll snappers.
+
+### Density Rhythm
+Components use compact vertical padding (`space-xs` and `space-sm`) inside interactive rows and table cells to retain information density for public health analysts, while macro sections decouple via `space-lg` and `space-xl`.
+
+## Elevation & Depth
+
+Visual hierarchy is maintained through **Tonal Layering** supplemented by **crisp, low-contrast administrative outlines**. Diffused shadows are strictly utility-driven to distinguish floating filter bars and modals from underlying registries.
+
+### Elevation Levels
+- **Canvas Base (Level 0):** Flat background in slate-ice `#F8FAFC`. Zero elevation.
+- **Surface Panels & Cards (Level 1):** Solid white surface (`#FFFFFF`) with a 1px border in subtle slate (`#E2E8F0`). Used for tabular blocks, filter forms, and dashboard metric pods.
+- **Elevated Hover / Interactive States (Level 2):** Applied when hovering over roster cards or active selection rows. Employs a soft, ambient teal-tinted shadow: `0 4px 12px -2px rgba(13, 122, 104, 0.08), 0 2px 6px -1px rgba(30, 41, 59, 0.04)`.
+- **Overlays & Drawers (Level 3):** Reserved for personnel dossiers, reallocation modals, and dropdown action menus. Bordered with `#CBD5E1` and lifted by `0 12px 24px -4px rgba(15, 23, 42, 0.12)`.
+
+## Shapes
+
+The design system incorporates **Soft (Level 1)** geometry (`0.25rem` / 4px base radius) to reflect institutional discipline and architectural clarity.
+
+- **Data Tables & KPI Containers:** Structured with minimal corner softening (`0.25rem` to `0.375rem`) to maximize tabular canvas utility and create clean vertical dividers.
+- **Action Buttons & Inputs:** Retain strict 4px (`0.25rem`) corners, preserving a practical, form-centric feel.
+- **Status Badges & Chips:** Utilize slightly higher relative rounding (`rounded-lg`, 0.5rem) to set them visually apart from static data cells.
+- **Full Pill Rounds:** Restricted exclusively to micro notification counter pills and user avatar representations.
+
+## Components
+
+### Buttons
+- **Primary:** Deep Teal (`#0D7A68`) background, white text, 4px border radius. Hover state darkens to `#075E54`. Focus ring features a 2px offset teal ring (`rgba(13, 122, 104, 0.3)`).
+- **Secondary:** White background with a 1px solid Navy Slate border (`#CBD5E1`), text in `#1E293B`. Hover introduces `#F1F5F9` background fill.
+- **Destructive / Emergency Reallocation:** High-contrast Crimson (`#DC2626`) fill or outline, reserved for personnel quota denials, emergency re-deployments, or offboarding records.
+
+### Chips & Status Badges
+- **Normal / Full Quota:** Mint green background (`#ECFDF5`), deep emerald text (`#065F46`), border in `#A7F3D0`.
+- **Understaffed / Critical Alert:** Red background (`#FEF2F2`), crimson text (`#991B1B`), border in `#FECACA`.
+- **Pending Transfer / Temporary Duty:** Amber background (`#FFFBEB`), warm gold text (`#92400E`), border in `#FDE68A`.
+- **Inactive / On Leave:** Slate background (`#F1F5F9`), neutral text (`#475569`), border in `#CBD5E1`.
+
+### Data Tables
+- **Header Row:** Navy Slate tint (`#F8FAFC`), text in `#475569`, 11px uppercase `Manrope` font with subtle tracking.
+- **Cell Structure:** Fixed 48px standard row height (compact 40px mode for roster scheduling). Bottom border: 1px `#E2E8F0`. Zebra striping is avoided; row separation relies on borders and hover highlighting in `#F0FDFA`.
+- **Pinning:** The leftmost column (Physician License No. & Full Name) remains sticky during lateral horizontal overflow on smaller displays.
+
+### Form Inputs & Selectors
+- **Input Fields:** Flat white fill, 1px solid slate border (`#CBD5E1`), height 38px, padding `0.5rem 0.75rem`. Focus shifts the border to Primary Deep Teal (`#0D7A68`) with a matching translucent halo.
+- **Hospital / District Filter Dropdowns:** Multi-select chips nested inside input wrappers with clear dismiss icons.
+
+### Metric & KPI Cards
+- **Structure:** Clean white surface container with 1px border `#E2E8F0`. Metrics feature an overarching label in `label-sm`, a primary metric value in `numeric-stat`, and a delta status chip showing monthly personnel surplus or shortfall.

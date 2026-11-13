@@ -1,0 +1,8 @@
+{
+  "name": "P-MEDIS Healthcare Intelligence",
+  "description": "ระบบสารสนเทศอัจฉริยะด้านสาธารณสุขจังหวัดและการเข้าสู่ระบบด้วยบัญชี Gmail สำหรับบุคลากรทางการแพทย์",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

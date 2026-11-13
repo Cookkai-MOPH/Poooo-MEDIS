@@ -1,0 +1,230 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Global Safety Net: Default Deny
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // --- Reusable Hardened Helpers ---
+    function isValidId(id) {
+      return id is string && id.size() >= 1 && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    function incoming() {
+      return request.resource.data;
+    }
+
+    function existing() {
+      return resource.data;
+    }
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isVerifiedUser() {
+      return isSignedIn() && request.auth.token.email_verified == true;
+    }
+
+    function isOwner(userId) {
+      return isSignedIn() && request.auth.uid == userId;
+    }
+
+    function isBootstrappedAdmin() {
+      return isVerifiedUser() && request.auth.token.email == 'cookkaimoph@gmail.com';
+    }
+
+    function isAdmin() {
+      return isBootstrappedAdmin() || (
+        isVerifiedUser() && exists(/databases/$(database)/documents/admins/$(request.auth.uid))
+      );
+    }
+
+    // --- Entity Validation Helpers ---
+    function isValidUserProfile(data) {
+      return data.keys().hasAll([
+          'uid', 'email', 'displayName', 'photoURL',
+          'position', 'department', 'facility', 'role',
+          'lastLoginAt', 'createdAt', 'updatedAt'
+        ])
+        && data.keys().hasOnly([
+          'uid', 'email', 'displayName', 'photoURL',
+          'position', 'department', 'facility', 'role',
+          'lastLoginAt', 'createdAt', 'updatedAt'
+        ])
+        && data.uid is string && data.uid.size() >= 1 && data.uid.size() <= 128 && data.uid.matches('^[a-zA-Z0-9_\\-]+$')
+        && data.email is string && data.email.size() >= 3 && data.email.size() <= 254
+        && data.displayName is string && data.displayName.size() >= 1 && data.displayName.size() <= 120
+        && data.photoURL is string && data.photoURL.size() <= 500
+        && data.position is string && data.position.size() <= 100
+        && data.department is string && data.department.size() <= 120
+        && data.facility is string && data.facility.size() <= 120
+        && data.role in ['officer', 'admin']
+        && data.lastLoginAt is timestamp
+        && data.createdAt is timestamp
+        && data.updatedAt is timestamp;
+    }
+
+    function isValidLoginSession(data) {
+      return data.keys().hasAll([
+          'userId', 'email', 'provider', 'deviceLabel', 'status', 'loginAt', 'createdAt'
+        ])
+        && data.keys().hasOnly([
+          'userId', 'email', 'provider', 'deviceLabel', 'status', 'loginAt', 'createdAt'
+        ])
+        && data.userId is string && data.userId.size() >= 1 && data.userId.size() <= 128 && data.userId.matches('^[a-zA-Z0-9_\\-]+$')
+        && data.email is string && data.email.size() >= 3 && data.email.size() <= 254
+        && data.provider == 'google.com'
+        && data.deviceLabel is string && data.deviceLabel.size() >= 1 && data.deviceLabel.size() <= 120
+        && data.status in ['active', 'signed_out']
+        && data.loginAt is timestamp
+        && data.createdAt is timestamp;
+    }
+
+    function isValidWorkforceRecord(data) {
+      return data.keys().hasAll([
+          'ownerId', 'rowNo', 'licenseNo', 'fullName', 'hospital', 'district',
+          'positionTitle', 'rankLevel', 'doctorType', 'dutyStatus',
+          'j18Status', 'j18Hospital', 'specialty', 'studySponsor', 'studyPeriod', 'note',
+          'createdAt', 'updatedAt'
+        ])
+        && data.keys().hasOnly([
+          'ownerId', 'rowNo', 'licenseNo', 'fullName', 'hospital', 'district',
+          'positionTitle', 'rankLevel', 'doctorType', 'dutyStatus',
+          'j18Status', 'j18Hospital', 'specialty', 'studySponsor', 'studyPeriod', 'note',
+          'createdAt', 'updatedAt'
+        ])
+        && data.ownerId is string && data.ownerId.size() >= 1 && data.ownerId.size() <= 128 && data.ownerId.matches('^[a-zA-Z0-9_\\-]+$')
+        && data.rowNo is int && data.rowNo >= 0 && data.rowNo <= 10000
+        && data.licenseNo is string && data.licenseNo.size() >= 1 && data.licenseNo.size() <= 32
+        && data.fullName is string && data.fullName.size() >= 2 && data.fullName.size() <= 120
+        && data.hospital is string && data.hospital.size() >= 2 && data.hospital.size() <= 120
+        && data.district is string && data.district.size() >= 2 && data.district.size() <= 80
+        && data.positionTitle is string && data.positionTitle.size() <= 80
+        && data.rankLevel is string && data.rankLevel.size() <= 60
+        && data.doctorType is string && data.doctorType.size() <= 100
+        && data.dutyStatus in ['active_duty', 'study_leave', 'resigned']
+        && data.j18Status in ['match', 'mismatch', 'other']
+        && data.j18Hospital is string && data.j18Hospital.size() <= 120
+        && data.specialty is string && data.specialty.size() <= 200
+        && data.studySponsor is string && data.studySponsor.size() <= 120
+        && data.studyPeriod is string && data.studyPeriod.size() <= 120
+        && data.note is string && data.note.size() <= 240
+        && data.createdAt is timestamp
+        && data.updatedAt is timestamp;
+    }
+
+    // --- Collection: admins (Read-Only Trusted Admin Markers) ---
+    match /admins/{adminId} {
+      allow get: if isValidId(adminId) && (isOwner(adminId) || isAdmin());
+      allow list: if false;
+      allow create, update, delete: if false;
+    }
+
+    // --- Collection: users (PII Isolated to Owner or Admin) ---
+    match /users/{userId} {
+      allow get: if isValidId(userId) && isVerifiedUser() && (isOwner(userId) || isAdmin());
+      allow list: if isBootstrappedAdmin();
+      allow create: if isVerifiedUser()
+        && isValidId(userId)
+        && isValidUserProfile(incoming())
+        && isOwner(userId)
+        && incoming().uid == request.auth.uid
+        && incoming().email == request.auth.token.email
+        && (incoming().role == 'officer' || isAdmin())
+        && incoming().createdAt == request.time
+        && incoming().updatedAt == request.time
+        && incoming().lastLoginAt == request.time;
+      allow update: if isVerifiedUser()
+        && isValidId(userId)
+        && isValidUserProfile(incoming())
+        && (isOwner(userId) || isAdmin())
+        && incoming().uid == existing().uid
+        && incoming().email == existing().email
+        && incoming().createdAt == existing().createdAt
+        && incoming().updatedAt == request.time
+        && (
+          // Action: Record Gmail Login Refresh
+          (isOwner(userId)
+            && incoming().role == existing().role
+            && incoming().diff(existing()).affectedKeys().hasOnly(['displayName', 'photoURL', 'lastLoginAt', 'updatedAt'])
+            && incoming().lastLoginAt == request.time) ||
+          // Action: Update Officer Facility Profile
+          (isOwner(userId)
+            && incoming().role == existing().role
+            && incoming().diff(existing()).affectedKeys().hasOnly(['displayName', 'position', 'department', 'facility', 'updatedAt'])) ||
+          // Action: Admin Override
+          isAdmin()
+        );
+      allow delete: if false;
+
+      // --- Subcollection: sessions (Master Gate Enforced) ---
+      match /sessions/{sessionId} {
+        allow get: if isValidId(userId) && isValidId(sessionId) && isVerifiedUser() && (isOwner(userId) || isAdmin());
+        allow list: if isVerifiedUser() && ((isOwner(userId) && existing().userId == request.auth.uid) || isBootstrappedAdmin());
+        allow create: if isVerifiedUser()
+          && isValidId(userId)
+          && isValidId(sessionId)
+          && isValidLoginSession(incoming())
+          && isOwner(userId)
+          && incoming().userId == request.auth.uid
+          && incoming().email == request.auth.token.email
+          && incoming().status == 'active'
+          && incoming().loginAt == request.time
+          && incoming().createdAt == request.time
+          && exists(/databases/$(database)/documents/users/$(userId));
+        allow update: if isVerifiedUser()
+          && isValidId(userId)
+          && isValidId(sessionId)
+          && isValidLoginSession(incoming())
+          && (isOwner(userId) || isAdmin())
+          && existing().status != 'signed_out'
+          && incoming().userId == existing().userId
+          && incoming().email == existing().email
+          && incoming().provider == existing().provider
+          && incoming().loginAt == existing().loginAt
+          && incoming().createdAt == existing().createdAt
+          && (
+            (isOwner(userId)
+              && incoming().status == 'signed_out'
+              && incoming().diff(existing()).affectedKeys().hasOnly(['status'])) ||
+            isAdmin()
+          );
+        allow delete: if isValidId(userId) && isValidId(sessionId) && isVerifiedUser() && isOwner(userId);
+      }
+    }
+
+    // --- Collection: workforce (Scoped to Authenticated Owner or Admin) ---
+    match /workforce/{recordId} {
+      allow get: if isValidId(recordId) && isVerifiedUser() && (existing().ownerId == request.auth.uid || isAdmin());
+      allow list: if isVerifiedUser() && (existing().ownerId == request.auth.uid || isBootstrappedAdmin());
+      allow create: if isVerifiedUser()
+        && isValidId(recordId)
+        && isValidWorkforceRecord(incoming())
+        && incoming().ownerId == request.auth.uid
+        && incoming().createdAt == request.time
+        && incoming().updatedAt == request.time;
+      allow update: if isVerifiedUser()
+        && isValidId(recordId)
+        && isValidWorkforceRecord(incoming())
+        && (existing().ownerId == request.auth.uid || isAdmin())
+        && incoming().ownerId == existing().ownerId
+        && incoming().createdAt == existing().createdAt
+        && incoming().updatedAt == request.time
+        && (
+          // Action: Update Physician Roster Record
+          (existing().ownerId == request.auth.uid
+            && incoming().diff(existing()).affectedKeys().hasOnly([
+              'rowNo', 'licenseNo', 'fullName', 'hospital', 'district',
+              'positionTitle', 'rankLevel', 'doctorType', 'dutyStatus',
+              'j18Status', 'j18Hospital', 'specialty', 'studySponsor', 'studyPeriod', 'note',
+              'updatedAt'
+            ])) ||
+          isAdmin()
+        );
+      allow delete: if isValidId(recordId) && isVerifiedUser() && (existing().ownerId == request.auth.uid || isAdmin());
+    }
+  }
+}
