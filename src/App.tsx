@@ -302,9 +302,9 @@ export default function App() {
   const sectionMeta = SECTION_META[activeSection];
 
   return (
-    <div className="min-h-screen bg-[#F8FAFC] flex">
+    <div className="pmedis-app min-h-screen bg-[#F8FAFC] flex">
       {/* Desktop Sidebar (260px Fixed) */}
-      <aside className="hidden lg:flex lg:w-[260px] lg:flex-col lg:fixed lg:inset-y-0 bg-white border-r border-[#E2E8F0]">
+      <aside className="pmedis-sidebar hidden lg:flex lg:w-[260px] lg:flex-col lg:fixed lg:inset-y-0 bg-white border-r border-[#E2E8F0]">
         <div className="h-16 px-5 border-b border-[#E2E8F0] flex items-center gap-3">
           <div className="w-8 h-8 rounded bg-[#0D7A68] text-white font-display font-bold text-sm flex items-center justify-center shrink-0">
             P
@@ -437,7 +437,7 @@ export default function App() {
 
       {/* Main Content Area */}
       <div className="flex-1 lg:pl-[260px] flex flex-col min-w-0">
-        <header className="h-16 bg-white border-b border-[#E2E8F0] px-4 sm:px-8 flex items-center justify-between gap-4 sticky top-0 z-20">
+        <header className="pmedis-topbar h-16 bg-white border-b border-[#E2E8F0] px-4 sm:px-8 flex items-center justify-between gap-4 sticky top-0 z-20">
           <div className="flex items-center gap-3 min-w-0">
             <button
               type="button"
@@ -479,7 +479,7 @@ export default function App() {
           </div>
         </header>
 
-        <main className="flex-1 p-4 sm:p-8 max-w-[1400px] w-full mx-auto">
+        <main className="pmedis-content flex-1 p-4 sm:p-8 max-w-[1400px] w-full mx-auto">
           <div className="mb-6">
             <h1 className="font-display text-2xl font-bold text-[#0D1C2E] tracking-tight">
               {sectionMeta.title}

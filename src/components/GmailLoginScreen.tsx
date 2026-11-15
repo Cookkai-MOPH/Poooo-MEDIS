@@ -16,7 +16,7 @@ export const GmailLoginScreen: React.FC<GmailLoginScreenProps> = ({
   const [imageError, setImageError] = useState(false);
 
   return (
-    <div className="min-h-screen bg-[#F8FAFC] flex flex-col lg:flex-row">
+    <div className="premium-login min-h-screen bg-[#F8FAFC] flex flex-col lg:flex-row">
       {/* Left Institutional Visual Panel */}
       <div className="relative lg:w-[46%] min-h-[260px] lg:min-h-screen bg-[#0D1C2E] overflow-hidden flex flex-col justify-between">
         {!imageError ? (

@@ -81,3 +81,131 @@
   width: 20px;
   flex-shrink: 0;
 }
+
+/* P-MEDIS Premium Healthcare visual system */
+:root {
+  color-scheme: light;
+  --pm-green: #087b58;
+  --pm-green-dark: #075b45;
+  --pm-navy: #102b4e;
+  --pm-ink: #172b42;
+  --pm-muted: #64748b;
+  --pm-line: #e5ece9;
+  --pm-canvas: #f4f8f6;
+  --pm-radius: 18px;
+  --pm-shadow: 0 12px 34px rgba(16, 43, 78, .055);
+}
+
+html { scroll-behavior: smooth; }
+body {
+  background: var(--pm-canvas);
+  color: var(--pm-ink);
+  -webkit-font-smoothing: antialiased;
+}
+button, input, select, textarea { font: inherit; }
+button { transition: transform .18s ease, box-shadow .18s ease, background-color .18s ease, border-color .18s ease; }
+button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible {
+  outline: 3px solid rgba(8,123,88,.2);
+  outline-offset: 2px;
+}
+
+.pmedis-app {
+  background:
+    radial-gradient(ellipse at 80% 0%, rgba(8,123,88,.045), transparent 32%),
+    var(--pm-canvas);
+}
+.pmedis-sidebar {
+  background: linear-gradient(180deg, #fff 0%, #fbfdfc 100%);
+  border-color: var(--pm-line);
+  box-shadow: 8px 0 32px rgba(16,43,78,.025);
+  z-index: 30;
+}
+.pmedis-sidebar > div:first-child { height: 82px; border-color: var(--pm-line); }
+.pmedis-sidebar > div:first-child > div:first-child {
+  width: 42px; height: 42px; border-radius: 14px;
+  background: linear-gradient(145deg, #0b9368, #075b45);
+  box-shadow: 0 7px 16px rgba(8,123,88,.22);
+}
+.pmedis-sidebar nav { padding: 22px 14px; }
+.pmedis-sidebar nav button {
+  min-height: 46px; border-radius: 12px; padding: 0 14px;
+  color: #536579; font-weight: 600;
+}
+.pmedis-sidebar nav button:hover { background: #f2f8f5; color: var(--pm-green-dark); }
+.pmedis-sidebar nav button[class*="bg-[#F0FDFA]"] {
+  background: linear-gradient(100deg, #e8f6ef, #f3faf6);
+  color: var(--pm-green-dark);
+  box-shadow: inset 3px 0 0 var(--pm-green);
+}
+.pmedis-sidebar > div:last-child { border-color: var(--pm-line); padding: 18px; }
+.pmedis-sidebar > div:last-child button {
+  border-radius: 11px; min-height: 40px; background: #f7faf8;
+}
+.pmedis-topbar {
+  height: 76px; background: rgba(255,255,255,.88);
+  backdrop-filter: blur(16px); border-color: var(--pm-line);
+  box-shadow: 0 4px 20px rgba(16,43,78,.025);
+}
+.pmedis-content { max-width: 1540px; padding-top: 34px; padding-bottom: 48px; }
+.pmedis-content > div:first-child { margin-bottom: 28px; }
+.pmedis-content h1 { color: var(--pm-navy); font-size: clamp(1.45rem, 2vw, 1.9rem); letter-spacing: -.035em; }
+.pmedis-content h1 + p { color: #6b7d8e; line-height: 1.8; max-width: 950px; }
+
+/* Dashboard cards and data surfaces */
+.workforce-dashboard section,
+.workforce-dashboard > div > section {
+  border-radius: var(--pm-radius) !important;
+  border-color: var(--pm-line) !important;
+  box-shadow: var(--pm-shadow);
+  overflow: hidden;
+}
+.workforce-dashboard section > div[class*="bg-white"] {
+  border-radius: 15px;
+}
+.workforce-dashboard section > div[class*="bg-white"][class*="border"] {
+  border-color: var(--pm-line) !important;
+  box-shadow: 0 5px 18px rgba(16,43,78,.035);
+}
+.workforce-dashboard button { border-radius: 10px; }
+.workforce-dashboard input,
+.workforce-dashboard select,
+.workforce-dashboard textarea {
+  border-radius: 10px;
+  border-color: #dce7e2;
+  min-height: 42px;
+}
+.workforce-dashboard table thead { background: #f5f9f7; }
+.workforce-dashboard table th {
+  color: #52677a; font-size: 11px; letter-spacing: .045em;
+  text-transform: uppercase; font-weight: 700;
+}
+.workforce-dashboard table tbody tr { transition: background .15s ease; }
+.workforce-dashboard table tbody tr:hover { background: #f7fbf8; }
+
+/* Login experience */
+.premium-login { background: #f4f8f6; }
+.premium-login > div:first-child { background-color: var(--pm-navy); }
+.premium-login > main { background:
+  radial-gradient(circle at 90% 10%, rgba(8,123,88,.08), transparent 35%),
+  #f7faf8; }
+.premium-login > main > div > div {
+  border-radius: 24px !important;
+  border-color: #e4ece7 !important;
+  box-shadow: 0 24px 70px rgba(16,43,78,.10);
+}
+.premium-login .gsi-material-button {
+  height: 52px; border-radius: 12px; border-color: #d7e2dc;
+  box-shadow: 0 4px 12px rgba(16,43,78,.045);
+}
+.premium-login .gsi-material-button:hover:not(:disabled) {
+  transform: translateY(-1px); background: #f6fbf8;
+  border-color: #9fcab7; box-shadow: 0 8px 18px rgba(8,123,88,.10);
+}
+
+@media (max-width: 1023px) {
+  .pmedis-content { padding-top: 24px; }
+  .pmedis-topbar { height: 66px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; }
+}

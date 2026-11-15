@@ -351,7 +351,7 @@ export const WorkforceDashboard: React.FC<WorkforceDashboardProps> = ({
   };
 
   return (
-    <div className="space-y-6">
+    <div className="workforce-dashboard space-y-6">
       {bannerMessage && (
         <div className="bg-[#ECFDF5] border border-[#A7F3D0] rounded px-4 py-3 flex items-center justify-between gap-3 text-xs font-medium text-[#065F46]">
           <div className="flex items-center gap-2">
